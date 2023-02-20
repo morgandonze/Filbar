@@ -1,3 +1,6 @@
+import { useNavigation } from "@react-navigation/native"
+import { StackNavigationProp } from "@react-navigation/stack"
+import { AppStackParamList } from "../navigators"
 import { observer } from "mobx-react-lite"
 import React, { FC } from "react"
 import { FlatList, FlatListProps, Image, ImageStyle, TextStyle, View, ViewStyle } from "react-native"
@@ -9,18 +12,22 @@ import {
 import { isRTL } from "../i18n"
 import { colors, spacing } from "../theme"
 import { useSafeAreaInsetsStyle } from "../utils/useSafeAreaInsetsStyle"
+import { AppNavigator } from "../navigators"
 
+type NavProp = StackNavigationProp<AppStackParamList, "Project">
 
-export const ProjectListScreen: FC<ProjectListScreenProps> = observer(function ProjectListScreen(params) {
+// export const ProjectListScreen: FC<ProjectListScreenProps> = observer(function ProjectListScreen(params) {
+export const ProjectListScreen: FC = observer(function ProjectListScreen(params) {
 
+  const navigation = useNavigation<NavProp>()
   const $bottomContainerInsets = useSafeAreaInsetsStyle(["bottom"])
   const projects = [
-    {text: "Development", color: "#a17"},
-    {text: "Yoga", color: "#be3"},
-    {text: "Writing", color: "#3be"},
-    {text: "Cleaning", color: "#e3b"},
-    {text: "Job Applications", color: "#17a"},
-    {text: "Guitar", color: "#7a1"},
+    {id: 1, title: "Development", color: "#a17"},
+    {id: 2, title: "Yoga", color: "#be3"},
+    {id: 3, title: "Writing", color: "#3be"},
+    {id: 4, title: "Cleaning", color: "#e3b"},
+    {id: 5, title: "Job Applications", color: "#17a"},
+    {id: 6, title: "Guitar", color: "#7a1"},
   ]
 
   return (
@@ -42,9 +49,13 @@ export const ProjectListScreen: FC<ProjectListScreenProps> = observer(function P
                 alignItems: "center"
               }}
               onPress={() => {
-                console.log(params)
+                navigation.navigate("Project", {
+                  id: project.item.id,
+                  title: project.item.title,
+                  color: project.item.color,
+                })
               }}
-              text={project.item.text}
+              text={project.item.title}
               textStyle={{textAlign: "center"}}
             />
           )}

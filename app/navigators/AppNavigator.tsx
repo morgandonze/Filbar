@@ -16,7 +16,8 @@ import React from "react"
 import { useColorScheme } from "react-native"
 import Config from "../config"
 import {
-  WelcomeScreen,
+  ProjectListScreen,
+  ProjectScreen
 } from "../screens"
 import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
 
@@ -34,8 +35,8 @@ import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
  *   https://reactnavigation.org/docs/typescript/#organizing-types
  */
 export type AppStackParamList = {
-  Welcome: undefined
-  // 🔥 Your screens go here
+  ProjectList: undefined,
+  Project: {id: number, title: string, color: string},
 }
 
 /**
@@ -57,8 +58,8 @@ const AppStack = observer(function AppStack() {
     <Stack.Navigator
       screenOptions={{ headerShown: false }}
     >
-          <Stack.Screen name="Welcome" component={WelcomeScreen} />
-      {/** 🔥 Your screens go here */}
+      <Stack.Screen name="ProjectList" component={ProjectListScreen} />
+      <Stack.Screen name="Project" component={ProjectScreen} />
     </Stack.Navigator>
   )
 })
