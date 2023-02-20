@@ -2,16 +2,12 @@ import { useNavigation } from "@react-navigation/native"
 import { StackNavigationProp } from "@react-navigation/stack"
 import { observer } from "mobx-react-lite"
 import React, { FC } from "react"
-import { FlatList, FlatListProps, Image, ImageStyle, TextStyle, View, ViewStyle } from "react-native"
+import { View, ViewStyle } from "react-native"
 import { AppStackParamList } from "../navigators"
 import {
   Header,
-  ListItem,
-  Text,
 } from "../components"
-import { isRTL } from "../i18n"
-import { colors, spacing } from "../theme"
-import { useSafeAreaInsetsStyle } from "../utils/useSafeAreaInsetsStyle"
+import { colors } from "../theme"
 
 type NavProp = StackNavigationProp<AppStackParamList, "Project">
 
