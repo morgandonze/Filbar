@@ -14,10 +14,12 @@ import { StackScreenProps } from "@react-navigation/stack"
 import { observer } from "mobx-react-lite"
 import React from "react"
 import { useColorScheme } from "react-native"
+import { Button } from "../components"
 import Config from "../config"
 import {
   ProjectListScreen,
-  ProjectScreen
+  ProjectScreen,
+  NewProjectScreen,
 } from "../screens"
 import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
 
@@ -36,7 +38,8 @@ import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
  */
 export type AppStackParamList = {
   ProjectList: undefined,
-  Project: {id: number, title: string, color: string},
+  Project: { id: number, title: string, color: string },
+  NewProject: undefined,
 }
 
 /**
@@ -58,13 +61,17 @@ const AppStack = observer(function AppStack() {
     <Stack.Navigator
       screenOptions={{ headerShown: false }}
     >
-      <Stack.Screen name="ProjectList" component={ProjectListScreen} />
+      <Stack.Screen
+        name="ProjectList"
+        component={ProjectListScreen}
+      />
       <Stack.Screen name="Project" component={ProjectScreen} />
+      <Stack.Screen name="NewProject" component={NewProjectScreen} />
     </Stack.Navigator>
   )
 })
 
-interface NavigationProps extends Partial<React.ComponentProps<typeof NavigationContainer>> {}
+interface NavigationProps extends Partial<React.ComponentProps<typeof NavigationContainer>> { }
 
 export const AppNavigator = observer(function AppNavigator(props: NavigationProps) {
   const colorScheme = useColorScheme()
