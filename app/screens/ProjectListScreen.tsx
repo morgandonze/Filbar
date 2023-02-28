@@ -10,6 +10,7 @@ import {
 } from "../components"
 import { colors, spacing } from "../theme"
 import { useStores } from "../models"
+import { toNumber } from "i18n-js"
 
 type NavProp = StackNavigationProp<AppStackParamList, "Project">
 
@@ -19,7 +20,6 @@ export const ProjectListScreen: FC = observer(function ProjectListScreen() {
   const navigation = useNavigation<NavProp>();
   const rootStore = useStores();
   const { projects } = rootStore;
-  console.log("projects", Array.from(projects.values()))
 
   return (
     <View style={$container}>
@@ -44,11 +44,10 @@ export const ProjectListScreen: FC = observer(function ProjectListScreen() {
                 alignItems: "center"
               }}
               onPress={() => {
-                navigation.navigate("Project", {
-                  id: project.item.id,
-                  title: project.item.title,
-                  color: project.item.color,
-                })
+                navigation.navigate(
+                  "Project",
+                  {id: +project.item.id, title: project.item.title, color: project.item.color}
+                )
               }}
               text={project.item.title}
               textStyle={{ textAlign: "center" }}
