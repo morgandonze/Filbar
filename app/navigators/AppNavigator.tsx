@@ -15,6 +15,7 @@ import { observer } from "mobx-react-lite"
 import React from "react"
 import { useColorScheme } from "react-native"
 import { Button } from "../components"
+import { types } from "mobx-state-tree"
 import Config from "../config"
 import {
   ProjectListScreen,
@@ -41,6 +42,14 @@ export type AppStackParamList = {
   Project: { id: number, title: string, color: string },
   NewProject: undefined,
 }
+
+const Project = types.model({
+  title: types.optional(types.string, "Untitled Project"),
+  color: types.optional(types.string, "#000000"),
+  velocity: types.optional(types.number, 0),
+  priority: types.optional(types.integer, 0),
+  targetFrequency: types.optional(types.integer, 0)
+})
 
 /**
  * This is a list of all the route names that will exit the app if the back button
