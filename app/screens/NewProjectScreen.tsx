@@ -5,6 +5,7 @@ import React, { FC } from "react"
 import { FlatList, FlatListProps, Image, ImageStyle, TextStyle, TouchableOpacity, View, ViewStyle } from "react-native"
 import { AppStackParamList } from "../navigators"
 import {
+  Button,
   Header,
   ListItem,
   Text,
@@ -12,15 +13,19 @@ import {
 import { colors, spacing } from "../theme"
 import { useSafeAreaInsetsStyle } from "../utils/useSafeAreaInsetsStyle"
 import { TextInput } from "react-native-gesture-handler"
+import { useStores } from "../models"
 
 type NavProp = StackNavigationProp<AppStackParamList, "Project">
 
 export const NewProjectScreen: FC = observer(function NewProjectScreen() {
+  const snowbolBlue = "#0792e3";
+  const rootStore = useStores()
+  const { addProject } = rootStore
   const navigation: NavProp = useNavigation<NavProp>()
   const [title, onChangeTitle] = React.useState(null);
-  const [bgColor, changeBgColor] = React.useState('#0792e3');
+  const [bgColor, changeBgColor] = React.useState(snowbolBlue);
   const colors = [
-    { name: "snowbol blu", value: "#0792e3" },
+    { name: "snowbol blue", value: snowbolBlue },
     { name: "eggplant", value: "#a17" },
     { name: "neon green", value: "#be3" },
     { name: "aqua", value: "#3be" },
@@ -29,6 +34,11 @@ export const NewProjectScreen: FC = observer(function NewProjectScreen() {
     { name: "grouch", value: "#7a1" },
     { name: "fuscia", value: "#b7d" },
   ]
+  const saveProject = () => {
+    console.log("Saving Project…")
+    addProject(title, bgColor);
+    navigation.goBack();
+  }
 
   return (
     <View style={$container}>
@@ -55,21 +65,25 @@ export const NewProjectScreen: FC = observer(function NewProjectScreen() {
         <FlatList
           horizontal={true}
           data={colors}
-          contentContainerStyle={{
-            // flexDirection: "row",
-            // display: "flex",
-            // flexWrap: "wrap",
-            // justifyContent: "space-evenly",
-            // paddingTop: 20,
-          }}
           renderItem={color => (
             <TouchableOpacity
-              style={{ backgroundColor: color.item.value, flex: 1, padding: 40 }}
+              style={{
+                backgroundColor: color.item.value,
+                flex: 1,
+                padding: 40,
+                borderWidth: color.item.value == bgColor ? 3 : 0,
+                borderColor: '#fff'
+              }}
               onPress={() => {
+                console.log(title)
                 changeBgColor(color.item.value)
               }}
             />
           )}
+        />
+        <Button
+          text="Save Project"
+          onPress={saveProject}
         />
       </View>
     </View>
