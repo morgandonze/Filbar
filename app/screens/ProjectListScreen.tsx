@@ -9,22 +9,17 @@ import {
   ListItem,
 } from "../components"
 import { colors, spacing } from "../theme"
+import { useStores } from "../models"
 
 type NavProp = StackNavigationProp<AppStackParamList, "Project">
 
 // export const ProjectListScreen: FC<ProjectListScreenProps> = observer(function ProjectListScreen(params) {
 export const ProjectListScreen: FC = observer(function ProjectListScreen() {
 
-  const navigation = useNavigation<NavProp>()
-  const projects = [
-    { id: 1, title: "Development", color: "#a17" },
-    { id: 2, title: "Yoga", color: "#be3" },
-    { id: 3, title: "Writing", color: "#3be" },
-    { id: 4, title: "Cleaning", color: "#e3b" },
-    { id: 5, title: "Job Applications", color: "#17a" },
-    { id: 6, title: "Guitar", color: "#7a1" },
-  ]
-
+  const navigation = useNavigation<NavProp>();
+  const rootStore = useStores();
+  const { projects } = rootStore;
+  console.log("projects", Array.from(projects.values()))
 
   return (
     <View style={$container}>
@@ -39,7 +34,7 @@ export const ProjectListScreen: FC = observer(function ProjectListScreen() {
           }}
         />
         <FlatList
-          data={projects}
+          data={Array.from(projects.values())}
           renderItem={project => (
             <ListItem
               style={{
