@@ -75,7 +75,6 @@ export const NewProjectScreen: FC = observer(function NewProjectScreen() {
                 borderColor: '#fff'
               }}
               onPress={() => {
-                console.log(title)
                 changeBgColor(color.item.value)
               }}
             />
