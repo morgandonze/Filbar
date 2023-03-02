@@ -5,6 +5,7 @@ import React, { FC } from "react"
 import { View, ViewStyle } from "react-native"
 import { AppStackParamList } from "../navigators"
 import {
+  Button,
   Header,
 } from "../components"
 import { colors } from "../theme"
@@ -13,7 +14,11 @@ type NavProp = StackNavigationProp<AppStackParamList, "Project">
 
 export const ProjectScreen: FC = observer(function ProjectScreen(props: any) {
   const navigation: NavProp = useNavigation<NavProp>()
-  const { params: {color, title} } = props.route
+  const { params: {color, title, id } } = props.route
+
+  const recordActivity = () => {
+    navigation.navigate("NewActivity", {projectId: +id, title: title, color: color})
+  }
 
   return (
     <View style={$container}>
@@ -25,6 +30,10 @@ export const ProjectScreen: FC = observer(function ProjectScreen(props: any) {
           onLeftPress={() => {
             navigation.goBack()
           }}
+        />
+        <Button
+          text="Record Activity"
+          onPress={recordActivity}
         />
     </View>
   )

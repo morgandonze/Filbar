@@ -21,6 +21,7 @@ import {
   ProjectListScreen,
   ProjectScreen,
   NewProjectScreen,
+  NewActivityScreen,
 } from "../screens"
 import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
 
@@ -41,6 +42,7 @@ export type AppStackParamList = {
   ProjectList: undefined,
   Project: { id: number, title: string, color: string },
   NewProject: undefined,
+  NewActivity: {projectId: number, title: string, color: string},
 }
 
 const Project = types.model({
@@ -76,6 +78,7 @@ const AppStack = observer(function AppStack() {
       />
       <Stack.Screen name="Project" component={ProjectScreen} />
       <Stack.Screen name="NewProject" component={NewProjectScreen} />
+      <Stack.Screen name="NewActivity" component={NewActivityScreen} />
     </Stack.Navigator>
   )
 })
