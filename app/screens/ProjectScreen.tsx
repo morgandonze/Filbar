@@ -1,8 +1,8 @@
 import { useNavigation } from "@react-navigation/native"
 import { StackNavigationProp } from "@react-navigation/stack"
 import { observer } from "mobx-react-lite"
-import React, { FC } from "react"
-import { View, ViewStyle } from "react-native"
+import React, { FC, useLayoutEffect } from "react"
+import { SafeAreaView, View, ViewStyle } from "react-native"
 import { AppStackParamList } from "../navigators"
 import {
   Button,
@@ -22,53 +22,71 @@ export const ProjectScreen: FC = observer(function ProjectScreen(props: any) {
     navigation.navigate("NewActivity", { projectId: +id, title: title, color: color });
   }
 
-  return (
-    <View style={$container}>
-      <Header
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerShown: true,
+      header: () => <Header
         title={title}
-        style={{ backgroundColor: color, marginBottom: 10, borderRadius: 5 }}
+        style={{ backgroundColor: color, marginBottom: 10 }}
         titleStyle={{ color: "white" }}
         leftIcon="back"
-        onLeftPress={() => {
-          navigation.goBack()
-        }}
+        onLeftPress={() => { navigation.goBack() }}
+        rightIcon="settings"
+        backgroundColor={color}
       />
-      <View>
-        <Button
-          text="Record Activity"
-          onPress={recordActivity}
-        />
-      </View>
+    })
+  })
 
-      <View style={{ backgroundColor: "#dcdcdc", marginTop: 10, borderRadius: 5 }}>
-        <View style={{ padding: 20 }}>
-          <View style={{ display: "flex", justifyContent: "space-between", flexDirection: "row" }}>
-            <Text>Last Activity Date:</Text>
-            <Text>{projectStats.lastActivityDate}</Text>
-          </View>
+  return (
+    <View style={$container}>
+      <SafeAreaView>
+        {/* <Header
+          title={title}
+          style={{ backgroundColor: color, marginBottom: 10, borderRadius: 5 }}
+          titleStyle={{ color: "white", fontSize: 30 }}
+          titleContainerStyle={{}}
+          leftIcon="back"
+          onLeftPress={() => { navigation.goBack() }}
+          rightIcon="settings"
+          backgroundColor={color}
+        /> */}
+        <View>
+          <Button
+            text="Record Activity"
+            onPress={recordActivity}
+          />
+        </View>
 
-          <View style={{ display: "flex", justifyContent: "space-between", flexDirection: "row" }}>
-            <Text>Velocity:</Text>
-            <Text>{projectStats.velocity}</Text>
-          </View>
+        <View style={{ backgroundColor: "#dcdcdc", marginTop: 10, borderRadius: 5 }}>
+          <View style={{ padding: 20 }}>
+            <View style={{ display: "flex", justifyContent: "space-between", flexDirection: "row" }}>
+              <Text>Last Activity Date:</Text>
+              <Text>{projectStats.lastActivityDate}</Text>
+            </View>
 
-          <View style={{ display: "flex", justifyContent: "space-between", flexDirection: "row" }}>
-            <Text>Priority:</Text>
-            <Text>{projectStats.priority}</Text>
-          </View>
+            <View style={{ display: "flex", justifyContent: "space-between", flexDirection: "row" }}>
+              <Text>Velocity:</Text>
+              <Text>{projectStats.velocity}</Text>
+            </View>
 
-          <View style={{ display: "flex", justifyContent: "space-between", flexDirection: "row" }}>
-            <Text>Urgency:</Text>
-            <Text>{projectStats.urgency}</Text>
-          </View>
+            <View style={{ display: "flex", justifyContent: "space-between", flexDirection: "row" }}>
+              <Text>Priority:</Text>
+              <Text>{projectStats.priority}</Text>
+            </View>
 
-          <View style={{ display: "flex", justifyContent: "space-between", flexDirection: "row" }}>
-            <Text>Frequency:</Text>
-            <Text>{projectStats.frequency}</Text>
+            <View style={{ display: "flex", justifyContent: "space-between", flexDirection: "row" }}>
+              <Text>Urgency:</Text>
+              <Text>{projectStats.urgency}</Text>
+            </View>
+
+            <View style={{ display: "flex", justifyContent: "space-between", flexDirection: "row" }}>
+              <Text>Frequency:</Text>
+              <Text>{projectStats.frequency}</Text>
+            </View>
           </View>
         </View>
-      </View>
-    </View>
+      </SafeAreaView>
+    </View >
   )
 })
 
