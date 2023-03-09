@@ -17,7 +17,8 @@ export const NewActivityScreen: FC = observer(function NewActivityScreen(props: 
     const { params: { id: projectId, color, title } } = props.route
     const [startDate, setStartDate] = useState(new Date())
     const [endDate, setEndDate] = useState(new Date())
-    const [open, setOpen] = useState(false)
+    const [startOpen, setStartOpen] = useState(false)
+    const [endOpen, setEndOpen] = useState(false)
     // navigation.navigate("ProjectList")
 
     const saveActivity = () => {
@@ -36,32 +37,32 @@ export const NewActivityScreen: FC = observer(function NewActivityScreen(props: 
                 }}
             />
 
-            <Button text="Pick Start Date" onPress={() => setOpen(true)} />
+            <Button text="Pick Start Date" onPress={() => setStartOpen(true)} />
             <DatePicker
                 modal
-                open={open}
+                open={startOpen}
                 date={startDate}
                 onConfirm={(date) => {
-                    setOpen(false)
+                    setStartOpen(false)
                     setStartDate(date)
                 }}
                 onCancel={() => {
-                    setOpen(false)
+                    setStartOpen(false)
                 }}
             />
             <Text>{`${startDate}`}</Text>
 
-            <Button text="Pick End Date" onPress={() => setOpen(true)} />
+            <Button text="Pick End Date" onPress={() => setEndOpen(true)} />
             <DatePicker
                 modal
-                open={open}
+                open={endOpen}
                 date={endDate}
                 onConfirm={(date) => {
-                    setOpen(false)
+                    setEndOpen(false)
                     setEndDate(date)
                 }}
                 onCancel={() => {
-                    setOpen(false)
+                    setEndOpen(false)
                 }}
             />
             <Text>{`${endDate}`}</Text>
