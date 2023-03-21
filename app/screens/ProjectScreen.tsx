@@ -10,13 +10,16 @@ import {
   Text,
 } from "../components"
 import { colors } from "../theme"
+import tinycolor from "tinycolor2";
 
 type NavProp = StackNavigationProp<AppStackParamList, "Project">
 
 export const ProjectScreen: FC = observer(function ProjectScreen(props: any) {
   const navigation: NavProp = useNavigation<NavProp>();
-  const { params: { color, title, id } } = props.route;
+  const { params: project } = props.route;
+  const { color, title, id } = project || {};
   const projectStats = { velocity: 10, lastActivityDate: "2023 March 9", priority: 31, urgency: 0, frequency: 3 };
+  const shade = color ? tinycolor(color).desaturate(35).darken(12).toString() : ""
 
   const recordActivity = () => {
     navigation.navigate("NewActivity", { projectId: +id, title: title, color: color });
@@ -27,12 +30,12 @@ export const ProjectScreen: FC = observer(function ProjectScreen(props: any) {
       headerShown: true,
       header: () => <Header
         title={title}
-        style={{ backgroundColor: color, marginBottom: 10 }}
+        style={{ backgroundColor: shade, marginBottom: 10 }}
         titleStyle={{ color: "white" }}
         leftIcon="back"
         onLeftPress={() => { navigation.goBack() }}
         rightIcon="settings"
-        backgroundColor={color}
+        backgroundColor={shade}
       />
     })
   })
@@ -40,51 +43,39 @@ export const ProjectScreen: FC = observer(function ProjectScreen(props: any) {
   return (
     <View style={$container}>
       <SafeAreaView>
-        {/* <Header
-          title={title}
-          style={{ backgroundColor: color, marginBottom: 10, borderRadius: 5 }}
-          titleStyle={{ color: "white", fontSize: 30 }}
-          titleContainerStyle={{}}
-          leftIcon="back"
-          onLeftPress={() => { navigation.goBack() }}
-          rightIcon="settings"
-          backgroundColor={color}
-        /> */}
-        <View>
+        <View style={{
+          width: '100%',
+          marginBottom: 20,
+        }}
+        >
+          <View style={{
+            height: 70,
+            backgroundColor: 'gray',
+            borderRadius: 20,
+            overflow: 'hidden',
+            justifyContent: 'center',
+            alignItems: 'center',
+            flexDirection: 'row',
+          }}>
+            <View style={{ height: 80, width: '100%', zIndex: -1, flexDirection: 'row' }}>
+              <View style={{ backgroundColor: color, flex: 2 }}></View>
+              <View style={{ backgroundColor: shade, flex: 5 }}></View>
+            </View>
+          </View>
+        </View>
+
+        <View style={{backgroundColor: 'lightgray', borderRadius: 10, marginBottom: 20, paddingHorizontal: 10, paddingVertical: 5}}>
+          <Text style={{ fontSize: 16 }}>Velocity: {projectStats.velocity}</Text>
+          <Text>Last Active: {projectStats.lastActivityDate}</Text>
+        </View>
+
+        <View style={{ marginBottom: 20 }}>
           <Button
             text="Record Activity"
             onPress={recordActivity}
           />
         </View>
 
-        <View style={{ backgroundColor: "#dcdcdc", marginTop: 10, borderRadius: 5 }}>
-          <View style={{ padding: 20 }}>
-            <View style={{ display: "flex", justifyContent: "space-between", flexDirection: "row" }}>
-              <Text>Last Activity Date:</Text>
-              <Text>{projectStats.lastActivityDate}</Text>
-            </View>
-
-            <View style={{ display: "flex", justifyContent: "space-between", flexDirection: "row" }}>
-              <Text>Velocity:</Text>
-              <Text>{projectStats.velocity}</Text>
-            </View>
-
-            <View style={{ display: "flex", justifyContent: "space-between", flexDirection: "row" }}>
-              <Text>Priority:</Text>
-              <Text>{projectStats.priority}</Text>
-            </View>
-
-            <View style={{ display: "flex", justifyContent: "space-between", flexDirection: "row" }}>
-              <Text>Urgency:</Text>
-              <Text>{projectStats.urgency}</Text>
-            </View>
-
-            <View style={{ display: "flex", justifyContent: "space-between", flexDirection: "row" }}>
-              <Text>Frequency:</Text>
-              <Text>{projectStats.frequency}</Text>
-            </View>
-          </View>
-        </View>
       </SafeAreaView>
     </View >
   )
@@ -94,4 +85,6 @@ const $container: ViewStyle = {
   flex: 1,
   backgroundColor: colors.background,
   padding: 10,
+  paddingTop: 20,
 }
+
