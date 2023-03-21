@@ -7,10 +7,13 @@ import { FlatList, View, ViewStyle } from "react-native"
 import {
   Header,
   ListItem,
+  Text,
 } from "../components"
 import { colors, spacing } from "../theme"
 import { useStores } from "../models"
 import { toNumber } from "i18n-js"
+import { lightenDarkenColor } from "../utils/lightenDarkenColor"
+import { TouchableOpacity } from "react-native-gesture-handler"
 
 type NavProp = StackNavigationProp<AppStackParamList, "Project">
 
@@ -20,12 +23,13 @@ export const ProjectListScreen: FC = observer(function ProjectListScreen() {
   const navigation = useNavigation<NavProp>();
   const rootStore = useStores();
   const { projects } = rootStore;
+  // rootStore.deleteProjects()
 
   return (
     <View style={$container}>
       <View style={$topContainer}>
         <Header
-          title="Snowbol"
+          title="Filbar"
           titleStyle={{ color: "#000" }}
           rightIcon="plus"
           rightIconColor="#000"
@@ -35,24 +39,36 @@ export const ProjectListScreen: FC = observer(function ProjectListScreen() {
         />
         <FlatList
           data={Array.from(projects.values())}
-          renderItem={project => (
-            <ListItem
-              style={{
-                backgroundColor: project.item.color,
-                padding: 15,
-                alignContent: "center",
-                alignItems: "center"
+          renderItem={project => {
+            const shade = '#888'; //lightenDarkenColor(project.item.color, -80);
+
+            return (
+              <TouchableOpacity style={{
+                backgroundColor: 'gray',
+                width: '100%',
+                marginBottom: 20,
+                height: 80,
+                borderRadius: 20,
+                overflow: 'hidden',
+                justifyContent: 'center',
+                alignItems: 'center',
               }}
-              onPress={() => {
-                navigation.navigate(
-                  "Project",
-                  {id: +project.item.id, title: project.item.title, color: project.item.color}
-                )
-              }}
-              text={project.item.title}
-              textStyle={{ textAlign: "center" }}
-            />
-          )}
+                onPress={() => {
+                  navigation.navigate(
+                    "Project",
+                    { id: +project.item.id, title: project.item.title, color: project.item.color }
+                  )
+                }}
+              >
+                <Text style={{ color: '#fff', fontSize: 24 }}>{project.item.title}</Text>
+                <View style={{ position: 'absolute', height: 80, width: '100%', zIndex: -1, flexDirection: 'row' }}>
+                  <View style={{ backgroundColor: project.item.color, flex: 1 }}></View>
+                  <View style={{ backgroundColor: shade, flex: 5 }}></View>
+                </View>
+              </TouchableOpacity>
+            )
+          }
+          }
         />
       </View>
     </View>
@@ -70,6 +86,7 @@ const $topContainer: ViewStyle = {
   flexBasis: "57%",
   justifyContent: "center",
   paddingHorizontal: spacing.large,
+  marginBottom: 100,
 }
 
 
