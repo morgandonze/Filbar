@@ -43,10 +43,7 @@ export const ProjectListScreen: FC = observer(function ProjectListScreen() {
         <FlatList
           data={Array.from(projects.values())}
           renderItem={project => {
-            // const shade = '#888';
             const shade = tinycolor(project.item.color).desaturate(35).darken(12).toString()
-            // const lOrD = lightOrDark(project.item.color);
-            const lOrD = lightOrDark(shade);
             const projectColor = project.item.color;
 
             return (
@@ -73,11 +70,8 @@ export const ProjectListScreen: FC = observer(function ProjectListScreen() {
                   alignItems: 'center',
                   flexDirection: 'row',
                 }}>
-                  {/* <View style={{backgroundColor: projectColor, padding: 10, borderRadius: 10, borderColor: shade, borderWidth: 2, marginLeft: 10}}> */}
-                  {/* <View style={{ position: 'absolute', height: 80, width: '100%', zIndex: -1, flexDirection: 'row' }}> */}
                   <View style={{ height: 80, width: '100%', zIndex: -1, flexDirection: 'row' }}>
                     <View style={{ backgroundColor: projectColor, flex: 2 }}></View>
-                    {/* <View style={{ backgroundColor: projectColor, flex: 2, borderRightColor: tinycolor(projectColor).darken(10).toString(), borderRightWidth: 3 }}></View> */}
                     <View style={{ backgroundColor: shade, flex: 5 }}></View>
                   </View>
                 </View>
