@@ -1,5 +1,4 @@
 export const lightenDarkenColor = (col: string, amt: number) => {
-    console.log('in', col)
     var usePound = false;
     if ( col[0] == "#" ) {
         col = col.slice(1);
@@ -24,7 +23,6 @@ export const lightenDarkenColor = (col: string, amt: number) => {
     else if  ( g < 0 ) g = 0;
 
     var x = (usePound?"#":"") + (g | (b << 8) | (r << 16)).toString(16);
-    console.log('out', x)
 
     return x
 }
