@@ -3,7 +3,7 @@ import { Instance, SnapshotOut, types } from "mobx-state-tree"
 export const Project = types.model({
     id: types.identifier,
     title: types.optional(types.string, "New Project"),
-    color: types.optional(types.string, "#0792e3"),
+    color: types.string,
     velocity: types.optional(types.number, 0),
     priority: types.optional(types.integer, 0),
     howOftenInDays: types.optional(types.integer, 0),
