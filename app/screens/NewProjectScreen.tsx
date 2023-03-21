@@ -26,13 +26,13 @@ export const NewProjectScreen: FC = observer(function NewProjectScreen() {
   const [bgColor, changeBgColor] = React.useState(snowbolBlue);
   const colors = [
     { name: "snowbol blue", value: snowbolBlue },
-    { name: "eggplant", value: "#a17" },
-    { name: "neon green", value: "#be3" },
-    { name: "aqua", value: "#3be" },
-    { name: "hot pink", value: "#e3b" },
-    { name: "smurf", value: "#17a" },
-    { name: "grouch", value: "#7a1" },
-    { name: "fuscia", value: "#b7d" },
+    { name: "eggplant", value: "#aa1177" },
+    { name: "neon green", value: "#bbee33" },
+    { name: "aqua", value: "#33bbee" },
+    { name: "hot pink", value: "#ee33bb" },
+    { name: "smurf", value: "#1177aa" },
+    { name: "grouch", value: "#77aa11" },
+    { name: "fuscia", value: "#bb77dd" },
   ]
   const saveProject = () => {
     console.log("Saving Project…")
