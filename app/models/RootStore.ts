@@ -35,7 +35,10 @@ export const RootStoreModel = types
                     title: title,
                     color: color,
                 }))
-            }
+            },
+        deleteProjects() {
+            self.projects.clear()
+        }
     }))
 
 /**
