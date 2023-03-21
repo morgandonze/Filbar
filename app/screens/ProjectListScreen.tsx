@@ -16,6 +16,7 @@ import { toNumber } from "i18n-js"
 import { lightenDarkenColor } from "../utils/lightenDarkenColor"
 import { TouchableOpacity } from "react-native-gesture-handler"
 import { lightOrDark } from "../utils/lightOrDarkColor"
+import { processColor } from "react-native-reanimated"
 
 type NavProp = StackNavigationProp<AppStackParamList, "Project">
 
@@ -42,34 +43,43 @@ export const ProjectListScreen: FC = observer(function ProjectListScreen() {
         <FlatList
           data={Array.from(projects.values())}
           renderItem={project => {
-            // const shade = '#888'; //lightenDarkenColor(project.item.color, -80);
-            // const shade = tinycolor(project.item.color).darken(22).toString()
-            const shade = 'gray'
-            const lOrD = lightOrDark(project.item.color);
-            // const lOrD = lightOrDark(shade);
+            // const shade = '#888';
+            const shade = tinycolor(project.item.color).desaturate(35).darken(12).toString()
+            // const lOrD = lightOrDark(project.item.color);
+            const lOrD = lightOrDark(shade);
+            const projectColor = project.item.color;
 
             return (
               <TouchableOpacity style={{
-                backgroundColor: 'gray',
                 width: '100%',
                 marginBottom: 20,
-                height: 80,
-                borderRadius: 20,
-                overflow: 'hidden',
-                justifyContent: 'center',
-                alignItems: 'center',
               }}
                 onPress={() => {
                   navigation.navigate(
                     "Project",
-                    { id: +project.item.id, title: project.item.title, color: project.item.color }
+                    { id: +project.item.id, title: project.item.title, color: projectColor }
                   )
                 }}
               >
-                <Text style={{ color: {'light': '#000', 'dark': '#fff'}[lOrD], fontSize: 24 }}>{project.item.title}</Text>
-                <View style={{ position: 'absolute', height: 80, width: '100%', zIndex: -1, flexDirection: 'row' }}>
-                  <View style={{ backgroundColor: project.item.color, flex: 7 }}></View>
-                  <View style={{ backgroundColor: shade, flex: 1 }}></View>
+                <View>
+                  <Text style={{ fontSize: 24 }}>{project.item.title}</Text>
+                </View>
+                <View style={{
+                  height: 70,
+                  backgroundColor: 'gray',
+                  borderRadius: 20,
+                  overflow: 'hidden',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  flexDirection: 'row',
+                }}>
+                  {/* <View style={{backgroundColor: projectColor, padding: 10, borderRadius: 10, borderColor: shade, borderWidth: 2, marginLeft: 10}}> */}
+                  {/* <View style={{ position: 'absolute', height: 80, width: '100%', zIndex: -1, flexDirection: 'row' }}> */}
+                  <View style={{ height: 80, width: '100%', zIndex: -1, flexDirection: 'row' }}>
+                    <View style={{ backgroundColor: projectColor, flex: 2 }}></View>
+                    {/* <View style={{ backgroundColor: projectColor, flex: 2, borderRightColor: tinycolor(projectColor).darken(10).toString(), borderRightWidth: 3 }}></View> */}
+                    <View style={{ backgroundColor: shade, flex: 5 }}></View>
+                  </View>
                 </View>
               </TouchableOpacity>
             )
