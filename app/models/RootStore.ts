@@ -1,6 +1,7 @@
 import { Instance, SnapshotOut, types } from "mobx-state-tree"
 import { Activity } from "./Activity"
 import { Project } from "./Project"
+import uuid from 'react-native-uuid';
 
 /**
  * A RootStore model.
@@ -14,7 +15,7 @@ export const RootStoreModel = types
     })
     .actions(self => ({
         addProject(title, color) {
-            let id = Array.from(self.projects.values()).length.toString()
+            let id = "Project_" + uuid.v4();
             self.projects.set(
                 id,
                 Project.create({
@@ -24,7 +25,7 @@ export const RootStoreModel = types
                 }))
             },
         addActivity(date, value, projectId) {
-            let id = Array.from(self.activities.values()).length.toString()
+            let id = "Activity_" + uuid.v4();
             self.activities.set(
                 id,
                 Activity.create({

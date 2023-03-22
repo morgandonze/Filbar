@@ -2,7 +2,7 @@ import { types } from "mobx-state-tree";
 import { Project } from "./Project";
 
 export const Activity = types.model({
-    id: types.identifier,
+    id: types.refinement(types.identifier, identifier => identifier.indexOf("Activity_") === 0),
     projectId: types.reference(Project),
     date: types.Date,
     value: types.number,
