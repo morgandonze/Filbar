@@ -8,21 +8,32 @@ import { AppStackParamList } from "../navigators";
 import { ProjectListScreen } from "./ProjectListScreen";
 import React, { useState } from 'react'
 import DatePicker from 'react-native-date-picker'
+import { useStores } from "../models";
 
 
 type NavProp = StackNavigationProp<AppStackParamList, "NewActivity">
 
-export const NewActivityScreen: FC = observer(function NewActivityScreen(props: any) {
+export const NewActivityScreen: FC = observer(function NewActivityScreen() {
     const navigation: NavProp = useNavigation<NavProp>()
-    const { params: { id: projectId, color, title } } = props.route
-    const [startDate, setStartDate] = useState(new Date())
-    const [endDate, setEndDate] = useState(new Date())
+    // const { params: activityParams } = props.route
+
+    const rootStore = useStores();
+    const { currentProject: currentProjectId } = rootStore;
+    const project = rootStore.getProjectById(currentProjectId);
+    const { id: projectId, color, title } = project;
+
     const [startOpen, setStartOpen] = useState(false)
     const [endOpen, setEndOpen] = useState(false)
-    // navigation.navigate("ProjectList")
+    const [startDate, setStartDate] = useState(new Date())
+    const [endDate, setEndDate] = useState(new Date())
+    const [value, setValue] = useState(1);
+
 
     const saveActivity = () => {
-
+        return () => {
+            rootStore.addActivity(Date.now(), value, projectId);
+            navigation.goBack();
+        }
     }
 
     return (
@@ -77,7 +88,7 @@ export const NewActivityScreen: FC = observer(function NewActivityScreen(props: 
 
             <Button
                 text="Save"
-                onPress={saveActivity}
+                onPress={saveActivity()}
             />
         </View>
     )

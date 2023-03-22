@@ -40,7 +40,7 @@ import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
  */
 export type AppStackParamList = {
   ProjectList: undefined,
-  Project: { id: number, title: string, color: string },
+  Project: undefined,
   NewProject: undefined,
   NewActivity: {projectId: number, title: string, color: string},
 }

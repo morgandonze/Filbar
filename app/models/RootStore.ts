@@ -10,6 +10,7 @@ export const RootStoreModel = types
     .props({
         projects: types.map(Project),
         activities: types.map(Activity),
+        currentProject: types.maybe(types.string),
     })
     .actions(self => ({
         addProject(title, color) {
@@ -22,12 +23,31 @@ export const RootStoreModel = types
                     color: color,
                 }))
             },
+        addActivity(date, value, projectId) {
+            let id = Array.from(self.activities.values()).length.toString()
+            self.activities.set(
+                id,
+                Activity.create({
+                    id: id,
+                    date: date,
+                    projectId: projectId,
+                    value: value
+                    
+                })
+            )
+        },
         getProjectById(id: string) {
             return self.projects.get(id)
         },
+        deleteActivities() {
+            self.activities.clear()
+        },
         deleteProjects() {
             self.projects.clear()
-        }
+        },
+        setCurrentProject(project) {
+            self.currentProject = project;
+        },
     }))
 
 /**

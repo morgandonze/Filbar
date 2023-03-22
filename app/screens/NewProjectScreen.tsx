@@ -35,7 +35,6 @@ export const NewProjectScreen: FC = observer(function NewProjectScreen() {
     { name: "fuscia", value: "#bb77dd" },
   ]
   const saveProject = () => {
-    console.log("Saving Project…")
     addProject(title, bgColor);
     navigation.goBack();
   }

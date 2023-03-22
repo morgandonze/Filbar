@@ -15,20 +15,21 @@ import { useStores } from "../models"
 
 type NavProp = StackNavigationProp<AppStackParamList, "Project">
 
-export const ProjectScreen: FC = observer(function ProjectScreen(props: any) {
+export const ProjectScreen: FC = observer(function ProjectScreen() {
   const navigation: NavProp = useNavigation<NavProp>();
-  const { params: projectParam } = props.route;
+  // navigation.navigate('ProjectList')
   const rootStore = useStores();
-  const { color, title, id } = projectParam || {};
-  const project: any = rootStore.getProjectById(id) ;
+  const { currentProject: currentProjectId, activities } = rootStore;
+  const project = rootStore.getProjectById(currentProjectId);
 
   if (!project) return <></>
-
+  const { color, title, id } = project;
   const projectStats = { velocity: project.velocity, lastActivityDate: "2023 March 9", priority: 31, urgency: 0, frequency: 3 };
   const shade = color ? tinycolor(color).desaturate(35).darken(12).toString() : ""
 
   const recordActivity = () => {
-    navigation.navigate("NewActivity", { projectId: +id, title: title, color: color });
+    navigation.navigate("NewActivity");
+    // { projectId: +id, title: title, color: color }
   }
 
   useLayoutEffect(() => {
