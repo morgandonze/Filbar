@@ -75,10 +75,16 @@ export const ProjectListScreen: FC = observer(function ProjectListScreen() {
             navigation.navigate("NewProject")
           }}
         />
-        <FlatList
-          data={Array.from(projects.values())}
-          renderItem={(project) => renderProjectBar(project)}
-        />
+        {
+          projects.size === 0
+            ?
+            (<Text>No projects yet!</Text>)
+            :
+            (<FlatList
+              data={Array.from(projects.values())}
+              renderItem={(project) => renderProjectBar(project)}
+            />)
+        }
       </View>
     </View>
   )
