@@ -23,7 +23,6 @@ export const NewActivityScreen: FC = observer(function NewActivityScreen() {
     const [startDate, setStartDate] = useState(new Date())
     const [endDate, setEndDate] = useState(new Date())
     const [value, setValue] = useState(1);
-    // useEffect(() => { }, [value])
 
     const project = rootStore.getProjectById(rootStore.currentProject);
     const { id: projectId, color, title } = project;
