@@ -17,7 +17,6 @@ type NavProp = StackNavigationProp<AppStackParamList, "Project">
 
 export const ProjectScreen: FC = observer(function ProjectScreen() {
   const navigation: NavProp = useNavigation<NavProp>();
-  // navigation.navigate('ProjectList')
   const rootStore = useStores();
   const { currentProject: currentProjectId, activities } = rootStore;
   const project = rootStore.getProjectById(currentProjectId);
@@ -29,7 +28,6 @@ export const ProjectScreen: FC = observer(function ProjectScreen() {
 
   const recordActivity = () => {
     navigation.navigate("NewActivity");
-    // { projectId: +id, title: title, color: color }
   }
 
   useLayoutEffect(() => {

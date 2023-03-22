@@ -11,7 +11,6 @@ import DatePicker from 'react-native-date-picker'
 import { useStores } from "../models";
 import { FlatList } from "react-native-gesture-handler";
 
-
 type NavProp = StackNavigationProp<AppStackParamList, "NewActivity">
 
 export const NewActivityScreen: FC = observer(function NewActivityScreen() {
