@@ -20,14 +20,11 @@ import { processColor } from "react-native-reanimated"
 
 type NavProp = StackNavigationProp<AppStackParamList, "Project">
 
-// export const ProjectListScreen: FC<ProjectListScreenProps> = observer(function ProjectListScreen(params) {
 export const ProjectListScreen: FC = observer(function ProjectListScreen() {
   const navigation = useNavigation<NavProp>();
   const rootStore = useStores();
-  // const [project, setProject] = useState({});
   const { projects } = rootStore;
   const projectData = Array.from(projects.values()).slice()
-  // const projectData = projects;
 
   const renderProjectBar = project => {
     const shade = tinycolor(project.color).desaturate(35).darken(12).toString()
@@ -98,13 +95,7 @@ const $container: ViewStyle = {
 }
 
 const $topContainer: ViewStyle = {
-  // flexShrink: 1,
-  // flexGrow: 1,
-  // flexBasis: "57%",
   justifyContent: "center",
   paddingHorizontal: spacing.large,
   marginBottom: 100,
 }
-
-
-
