@@ -14,3 +14,16 @@ export const Project = types
             return 100;
         }
     }))
+    .actions(self => ({
+        updateTite(title) {
+            self.title = title;
+        },
+        updateColor(color) {
+            self.color = color;
+        },
+        update(title, color) {
+            this.updateTite(title);
+            this.updateColor(color);
+        },
+
+    }))
