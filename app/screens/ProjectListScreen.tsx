@@ -26,14 +26,15 @@ export const ProjectListScreen: FC = observer(function ProjectListScreen() {
   const rootStore = useStores();
   // const [project, setProject] = useState({});
   const { projects } = rootStore;
+  const projectData = Array.from(projects.values()).slice()
+  // const projectData = projects;
 
-  const renderProjectBar = projectItem => {
-    const project = projectItem.item;
+  const renderProjectBar = project => {
     const shade = tinycolor(project.color).desaturate(35).darken(12).toString()
     const projectColor = project.color;
 
     return (
-      <TouchableOpacity style={{
+      <TouchableOpacity key={`project-${project.id}`} style={{
         width: '100%',
         marginBottom: 20,
       }}
@@ -75,16 +76,17 @@ export const ProjectListScreen: FC = observer(function ProjectListScreen() {
             navigation.navigate("NewProject")
           }}
         />
-        {
-          projects.size === 0
-            ?
-            (<Text>No projects yet!</Text>)
-            :
-            (<FlatList
-              data={Array.from(projects.values())}
-              renderItem={(project) => renderProjectBar(project)}
-            />)
-        }
+        <View>
+          {
+            projects.size === 0
+              ?
+              (<Text>No projects yet!</Text>)
+              :
+              <View>
+                {projectData.map((project) => renderProjectBar(project))}
+              </View>
+          }
+        </View>
       </View>
     </View>
   )
@@ -96,9 +98,9 @@ const $container: ViewStyle = {
 }
 
 const $topContainer: ViewStyle = {
-  flexShrink: 1,
-  flexGrow: 1,
-  flexBasis: "57%",
+  // flexShrink: 1,
+  // flexGrow: 1,
+  // flexBasis: "57%",
   justifyContent: "center",
   paddingHorizontal: spacing.large,
   marginBottom: 100,
