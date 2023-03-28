@@ -16,6 +16,7 @@ export const RootStoreModel = types
     .actions(self => ({
         addProject(title, color) {
             let id = "Project_" + uuid.v4();
+            
             self.projects.set(
                 id,
                 Project.create({
@@ -36,6 +37,9 @@ export const RootStoreModel = types
                     
                 })
             )
+        },
+        deleteProject(projectId) {
+            self.projects.delete(projectId)
         },
         getProjectById(id: string) {
             return self.projects.get(id)
