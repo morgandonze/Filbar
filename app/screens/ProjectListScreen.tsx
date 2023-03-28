@@ -2,21 +2,16 @@ import { useNavigation } from "@react-navigation/native"
 import { StackNavigationProp } from "@react-navigation/stack"
 import { AppStackParamList } from "../navigators"
 import { observer } from "mobx-react-lite"
-import React, { FC, useEffect, useLayoutEffect, useState } from "react"
-import { FlatList, View, ViewStyle } from "react-native"
+import React, { FC } from "react"
+import { View, ViewStyle } from "react-native"
 import tinycolor from "tinycolor2";
 import {
   Header,
-  ListItem,
   Text,
 } from "../components"
 import { colors, spacing } from "../theme"
-import { RootStore, useStores } from "../models"
-import { toNumber } from "i18n-js"
-import { lightenDarkenColor } from "../utils/lightenDarkenColor"
+import { useStores } from "../models"
 import { TouchableOpacity } from "react-native-gesture-handler"
-import { lightOrDark } from "../utils/lightOrDarkColor"
-import { processColor } from "react-native-reanimated"
 
 type NavProp = StackNavigationProp<AppStackParamList, "Project">
 
