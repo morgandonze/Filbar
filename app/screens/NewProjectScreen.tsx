@@ -19,6 +19,7 @@ type NavProp = StackNavigationProp<AppStackParamList, "Project">
 
 export const NewProjectScreen: FC = observer(function NewProjectScreen() {
   const snowbolBlue = "#0792e3";
+  const filbarPurple = "#B664B2"
   const rootStore = useStores()
   const { addProject } = rootStore
   const navigation: NavProp = useNavigation<NavProp>()
@@ -26,6 +27,7 @@ export const NewProjectScreen: FC = observer(function NewProjectScreen() {
   const [bgColor, changeBgColor] = React.useState(snowbolBlue);
   const colors = [
     { name: "snowbol blue", value: snowbolBlue },
+    {name: "filbar purple", value: filbarPurple},
     { name: "eggplant", value: "#aa1177" },
     { name: "neon green", value: "#bbee33" },
     { name: "aqua", value: "#33bbee" },
