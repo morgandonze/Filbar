@@ -21,13 +21,20 @@ export const ProjectScreen: FC = observer(function ProjectScreen() {
   const { currentProject: currentProjectId, activities } = rootStore;
   const project = rootStore.getProjectById(currentProjectId);
 
+  // TODO do something better than this if there's no project
   if (!project) return <></>
+
   const { color, title, id } = project;
   const projectStats = { velocity: project.velocity, lastActivityDate: "2023 March 9", priority: 31, urgency: 0, frequency: 3 };
   const shade = color ? tinycolor(color).desaturate(35).darken(12).toString() : ""
 
   const recordActivity = () => {
     navigation.navigate("NewActivity");
+  }
+
+  const edit = () => {
+    rootStore.setCurrentProject(project.id)
+    navigation.navigate("EditProject");
   }
 
   useLayoutEffect(() => {
@@ -40,6 +47,7 @@ export const ProjectScreen: FC = observer(function ProjectScreen() {
         leftIcon="back"
         onLeftPress={() => { navigation.goBack() }}
         rightIcon="settings"
+        onRightPress={edit}
         backgroundColor={shade}
       />
     })
