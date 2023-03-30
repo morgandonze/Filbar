@@ -20,9 +20,6 @@ export const ProjectListScreen: FC = observer(function ProjectListScreen() {
   const rootStore = useStores();
   const { projects: projectsObj } = rootStore;
   const projects = Array.from(projectsObj.slice());
-  // console.log(projectData)
-  // console.log(projects)
-  // const projectData = Array.from(projects.values()).slice()
 
   const renderProjectBar = project => {
     const shade = tinycolor(project.color).desaturate(35).darken(12).toString()
