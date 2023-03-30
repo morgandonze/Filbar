@@ -11,9 +11,9 @@ export const Activity = types.model({
 .actions(self => ({
 }))
 .views(self => ({
-    discountedValue(now: Date) {
-        const dt = now.valueOf() - self.date.valueOf();
-        const T = 1 * 24 * 60 * 60 * 1000 / 20;
-        return Math.exp(-dt/T)
+    discountedValue(atDate: Date) {
+        const dt = atDate.valueOf() - self.date.valueOf();
+        const T = 1 * 24 * 60 * 60 * 1000
+        return Math.exp(-dt/T) * self.value
     }
 }))

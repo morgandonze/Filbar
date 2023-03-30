@@ -48,8 +48,8 @@ export const ProjectListScreen: FC = observer(function ProjectListScreen() {
           flexDirection: 'row',
         }}>
           <View style={{ height: 80, width: '100%', zIndex: -1, flexDirection: 'row' }}>
-            <View style={{ backgroundColor: projectColor, flex: 2 }}></View>
-            <View style={{ backgroundColor: shade, flex: 5 }}></View>
+            <View style={{ backgroundColor: projectColor, flex: (project.velocity / 100) }}></View>
+            <View style={{ backgroundColor: shade, flex: ((100 - project.velocity)/100) }}></View>
           </View>
         </View>
       </TouchableOpacity>

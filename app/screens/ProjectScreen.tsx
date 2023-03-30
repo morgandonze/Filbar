@@ -25,7 +25,6 @@ export const ProjectScreen: FC = observer(function ProjectScreen() {
   if (!project) return <></>
 
   const { color, title, id } = project;
-  const projectStats = { velocity: project.velocity, lastActivityDate: "2023 March 9", priority: 31, urgency: 0, frequency: 3 };
   const shade = color ? tinycolor(color).desaturate(35).darken(12).toString() : ""
 
   const recordActivity = () => {
@@ -71,15 +70,15 @@ export const ProjectScreen: FC = observer(function ProjectScreen() {
             flexDirection: 'row',
           }}>
             <View style={{ height: 80, width: '100%', zIndex: -1, flexDirection: 'row' }}>
-              <View style={{ backgroundColor: color, flex: 2 }}></View>
-              <View style={{ backgroundColor: shade, flex: 5 }}></View>
+              <View style={{ backgroundColor: color, flex: (project.velocity / 100) }}></View>
+              <View style={{ backgroundColor: shade, flex: ((100 - project.velocity)/100) }}></View>
             </View>
           </View>
         </View>
 
         <View style={{ backgroundColor: 'lightgray', borderRadius: 10, marginBottom: 20, paddingHorizontal: 10, paddingVertical: 5 }}>
           <Text style={{ fontSize: 16 }}>Velocity: {project.velocity}</Text>
-          <Text>Last Active: {projectStats.lastActivityDate}</Text>
+          <Text>Activity count: {project.activityCount}</Text>
         </View>
 
         <View style={{ marginBottom: 20 }}>
