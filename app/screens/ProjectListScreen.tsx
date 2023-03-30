@@ -18,8 +18,11 @@ type NavProp = StackNavigationProp<AppStackParamList, "Project">
 export const ProjectListScreen: FC = observer(function ProjectListScreen() {
   const navigation = useNavigation<NavProp>();
   const rootStore = useStores();
-  const { projects } = rootStore;
-  const projectData = Array.from(projects.values()).slice()
+  const { projects: projectsObj } = rootStore;
+  const projects = Array.from(projectsObj.slice());
+  // console.log(projectData)
+  // console.log(projects)
+  // const projectData = Array.from(projects.values()).slice()
 
   const renderProjectBar = project => {
     const shade = tinycolor(project.color).desaturate(35).darken(12).toString()
@@ -56,6 +59,7 @@ export const ProjectListScreen: FC = observer(function ProjectListScreen() {
     )
   }
 
+
   return (
     <View style={$container}>
       <View style={$topContainer}>
@@ -70,12 +74,11 @@ export const ProjectListScreen: FC = observer(function ProjectListScreen() {
         />
         <View>
           {
-            projects.size === 0
-              ?
+            projects.length == 0 ?
               (<Text>No projects yet!</Text>)
               :
               <View>
-                {projectData.map((project) => renderProjectBar(project))}
+                {projects.map((project) => renderProjectBar(project))}
               </View>
           }
         </View>

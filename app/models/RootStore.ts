@@ -9,40 +9,36 @@ import uuid from 'react-native-uuid';
 export const RootStoreModel = types
     .model("RootStore")
     .props({
-        projects: types.map(Project),
-        activities: types.map(Activity),
+        projects: types.array(Project),
+        activities: types.array(Activity),
         currentProject: types.maybe(types.string),
     })
     .actions(self => ({
         addProject(title, color) {
             let id = "Project_" + uuid.v4();
             
-            self.projects.set(
-                id,
+            self.projects.push(
                 Project.create({
                     id: id,
                     title: title,
                     color: color,
-                }))
-            },
+                }))},
         addActivity(date, value, projectId) {
             let id = "Activity_" + uuid.v4();
-            self.activities.set(
-                id,
+            self.activities.push(
                 Activity.create({
                     id: id,
                     date: date,
                     projectId: projectId,
                     value: value
-                    
-                })
-            )
+                }))
         },
-        deleteProject(projectId) {
-            self.projects.delete(projectId)
+        deleteProject(projectId: string) {
+            let index = self.projects.findIndex(project => (project.id == projectId));
+            self.projects.splice(index, 1);
         },
-        getProjectById(id: string) {
-            return self.projects.get(id)
+        getProjectById(projectId: string) {
+            return self.projects.find(project => (project.id == projectId));
         },
         deleteActivities() {
             self.activities.clear()
