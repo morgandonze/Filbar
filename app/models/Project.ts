@@ -13,9 +13,10 @@ export const Project = types
     })
     .views(self => ({
         get velocity() {
-            return Array.from(self.activities.slice()).reduce((acc: number, act: Instance<typeof Activity>) => {
+            const v = Array.from(self.activities.slice()).reduce((acc: number, act: Instance<typeof Activity>) => {
                 return acc + act.discountedValue(new Date());
             }, 0)
+            return Math.round(v)
         },
         get activityCount() {
             console.log("activities", self.activities)
