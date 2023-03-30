@@ -19,22 +19,24 @@ export const RootStoreModel = types
         },
         addProject(title, color) {
             let id = "Project_" + uuid.v4();
-            
+
             self.projects.push(
                 Project.create({
                     id: id,
                     title: title,
                     color: color,
-                }))},
+                }))
+        },
         addActivity(date, value, projectId) {
             let id = "Activity_" + uuid.v4();
-            self.activities.push(
-                Activity.create({
-                    id: id,
-                    date: date,
-                    projectId: projectId,
-                    value: value
-                }))
+            const activity = Activity.create({
+                id: id,
+                date: date,
+                projectId: projectId,
+                value: value
+            })
+            self.activities.push(activity)
+            return activity;
         },
         deleteProject(projectId: string) {
             let index = self.projects.findIndex(project => (project.id == projectId));
@@ -57,8 +59,8 @@ export const RootStoreModel = types
 /**
  * The RootStore instance.
  */
-export interface RootStore extends Instance<typeof RootStoreModel> {}
+export interface RootStore extends Instance<typeof RootStoreModel> { }
 /**
  * The data of a RootStore.
  */
-export interface RootStoreSnapshot extends SnapshotOut<typeof RootStoreModel> {}
+export interface RootStoreSnapshot extends SnapshotOut<typeof RootStoreModel> { }
