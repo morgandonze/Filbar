@@ -19,7 +19,6 @@ export const Project = types
             return Math.round(v)
         },
         get activityCount() {
-            console.log("activities", self.activities)
             return self.activities.length;
         },
     }))

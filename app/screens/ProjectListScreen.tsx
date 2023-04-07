@@ -3,7 +3,7 @@ import { StackNavigationProp } from "@react-navigation/stack"
 import { AppStackParamList } from "../navigators"
 import { observer } from "mobx-react-lite"
 import React, { FC } from "react"
-import { View, ViewStyle } from "react-native"
+import { ScrollView, View, ViewStyle } from "react-native"
 import tinycolor from "tinycolor2";
 import {
   Header,
@@ -20,6 +20,7 @@ export const ProjectListScreen: FC = observer(function ProjectListScreen() {
   const rootStore = useStores();
   const { projects: projectsObj } = rootStore;
   const projects = Array.from(projectsObj.slice());
+  
 
   const renderProjectBar = project => {
     const shade = tinycolor(project.color).desaturate(35).darken(12).toString()
@@ -58,7 +59,7 @@ export const ProjectListScreen: FC = observer(function ProjectListScreen() {
 
 
   return (
-    <View style={$container}>
+    <ScrollView style={$container}>
       <View style={$topContainer}>
         <Header
           title="Filbar"
@@ -80,7 +81,7 @@ export const ProjectListScreen: FC = observer(function ProjectListScreen() {
           }
         </View>
       </View>
-    </View>
+    </ScrollView>
   )
 })
 

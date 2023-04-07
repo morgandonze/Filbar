@@ -14,6 +14,7 @@ import { colors, spacing } from "../theme"
 import { useSafeAreaInsetsStyle } from "../utils/useSafeAreaInsetsStyle"
 import { TextInput } from "react-native-gesture-handler"
 import { useStores } from "../models"
+import { projectColors } from "../theme/projectColors"
 
 type NavProp = StackNavigationProp<AppStackParamList, "Project">
 
@@ -25,17 +26,6 @@ export const NewProjectScreen: FC = observer(function NewProjectScreen() {
   const navigation: NavProp = useNavigation<NavProp>()
   const [title, onChangeTitle] = React.useState(null);
   const [bgColor, changeBgColor] = React.useState(snowbolBlue);
-  const colors = [
-    { name: "snowbol blue", value: snowbolBlue },
-    {name: "filbar purple", value: filbarPurple},
-    { name: "eggplant", value: "#aa1177" },
-    { name: "neon green", value: "#bbee33" },
-    { name: "aqua", value: "#33bbee" },
-    { name: "hot pink", value: "#ee33bb" },
-    { name: "smurf", value: "#1177aa" },
-    { name: "grouch", value: "#77aa11" },
-    { name: "fuscia", value: "#bb77dd" },
-  ]
   const saveProject = () => {
     addProject(title, bgColor);
     navigation.goBack();
@@ -64,22 +54,34 @@ export const NewProjectScreen: FC = observer(function NewProjectScreen() {
       <View>
         <Text>Color</Text>
         <FlatList
-          horizontal={true}
-          data={colors}
-          renderItem={color => (
-            <TouchableOpacity
-              style={{
-                backgroundColor: color.item.value,
-                flex: 1,
-                padding: 40,
-                borderWidth: color.item.value == bgColor ? 3 : 0,
-                borderColor: '#fff'
-              }}
-              onPress={() => {
-                changeBgColor(color.item.value)
-              }}
-            />
-          )}
+          data={Object.entries(projectColors)}
+          numColumns={4}
+          renderItem={(color) => {
+            let value = color.item[1]
+            return (
+              <View
+                style={{
+                  padding: 3,
+                  flex: 1,
+                  width: "25%",
+                  backgroundColor: value == bgColor ? "white" : value,
+                  maxWidth: "25%",
+                  height: 100,
+                }}
+              >
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: value,
+                    flex: 1,
+                    borderColor: '#fff'
+                  }}
+                  onPress={() => {
+                    changeBgColor(value)
+                  }}
+                />
+              </View>
+            )
+          }}
         />
         <Button
           text="Save Project"
